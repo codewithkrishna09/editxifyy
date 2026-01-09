@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Refund Policy - Editxify</title>
+
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* --- 1. CORE VARIABLES --- */
+    :root {
+      --bg: #050505;
+      --primary: #0044ff;
+      --text-main: #ffffff;
+      --text-muted: #b3b3b3;
+      --border: rgba(255, 255, 255, 0.1);
+      --font-head: 'Clash Display', sans-serif;
+      --font-body: 'Satoshi', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* --- 2. LOADER CSS (ADDED) --- */
+   .loader-wrapper {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  /* Dynamic Height for Mobile Address Bar Fix */
+  background: #000;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  /* Safe padding for mobile */
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  /* Space between logo and text */
+  transform: translateY(-5%);
+  /* Visual Optical Center */
+}
+
+/* 1. LOGO & RING */
+.loader-logo-box {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 68, 255, 0.1);
+}
+
+.logo-ring {
+  position: absolute;
+  width: 110%;
+  /* Ring slightly larger than container */
+  height: 110%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--primary);
+  border-right-color: var(--primary-glow);
+  z-index: 1;
+  /* Hardware Acceleration for Smoothness */
+  will-change: transform;
+  animation: smoothSpin 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+/* 2. TEXT & BAR */
+.loader-text-area {
+  width: 200px;
+  /* Fixed width for stability */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.loading-status {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+#loader-percent {
+  color: white;
+}
+
+
+/* 3. ANIMATIONS */
+@keyframes smoothSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fade Out Animation */
+.loader-wrapper.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease-out;
+}
+
+/* Mobile Tweak */
+@media (max-width: 480px) {
+  .loader-logo-box {
+    width: 80px;
+    height: 80px;
+  }
+
+  .loader-img {
+    width: 65px;
+    height: 65px;
+  }
+}
+
+    /* --- 3. CONTAINER --- */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* --- 4. HEADER & CONTENT --- */
+    .legal-header {
+      padding-top: 140px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 60px;
+    }
+
+    .legal-header h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 15px;
+    }
+
+    .legal-meta {
+      display: flex; gap: 20px;
+      color: var(--text-muted); font-size: 0.9rem;
+    }
+
+    .refund-content { max-width: 900px; margin-bottom: 120px; }
+
+    .policy-section { margin-bottom: 50px; }
+    .policy-section h2 {
+      font-family: var(--font-head); font-size: 1.8rem; color: white;
+      margin-bottom: 15px; border-left: 4px solid var(--primary); padding-left: 15px;
+    }
+    .policy-section p { color: var(--text-muted); font-size: 1rem; margin-bottom: 15px; }
+    .policy-section ul {
+      background: rgba(255, 255, 255, 0.03); padding: 25px;
+      border-radius: 12px; list-style: none; border: 1px solid var(--border);
+    }
+    .policy-section li {
+      margin-bottom: 10px; color: #ddd; padding-left: 20px; position: relative;
+    }
+    .policy-section li::before {
+      content: '⟳'; color: var(--primary); position: absolute; left: 0; font-weight: bold;
+    }
+
+    /* --- 5. FOOTER STYLES --- */
+    .footer-section {
+      background: #000;
+      border-top: 1px solid var(--border);
+      padding: 80px 0 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-watermark {
+      position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%);
+      font-size: 25vw; font-family: var(--font-head); font-weight: 900;
+      color: rgba(255, 255, 255, 0.03); pointer-events: none; z-index: 0;
+    }
+
+    .footer-cta-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--border);
+      position: relative; z-index: 2;
+    }
+    .footer-cta-bar h2 { font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3.5rem); }
+    .footer-cta-btn {
+      color: white; text-decoration: none; font-family: var(--font-head);
+      font-size: 1.2rem; border-bottom: 2px solid var(--primary); padding-bottom: 5px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 0.8fr 0.8fr 1.2fr;
+      gap: 40px; margin-bottom: 60px; position: relative; z-index: 2;
+    }
+
+    .brand-logo-wrapper { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+    .circle-logo-img {
+      width: 45px; height: 45px; border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2); object-fit: cover;
+    }
+    .brand-name { font-family: var(--font-head); font-size: 1.5rem; font-weight: 700; color: white; }
+
+    .footer-col h4 {
+      color: white; margin-bottom: 25px; font-family: var(--font-head);
+      letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem;
+    }
+    .footer-col a {
+      color: var(--text-muted); text-decoration: none; display: block;
+      margin-bottom: 12px; transition: 0.3s; font-size: 0.95rem; cursor: pointer;
+    }
+    .footer-col a:hover { color: white; }
+
+    .social-icons { display: flex; gap: 10px; }
+    .social-icons a {
+      width: 35px; height: 35px; border-radius: 50%; background: rgba(255, 255, 255, 0.1);
+      display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 0;
+      text-decoration: none; transition: 0.3s;
+    }
+    .social-icons a:hover { background: var(--primary); color: white; }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 20px; color: #555;
+      font-size: 0.85rem; position: relative; z-index: 2;
+    }
+
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 50px; }
+      .brand-logo-wrapper { justify-content: center; margin-bottom: 15px; }
+      .footer-brand p { margin: 0 auto; max-width: 90%; }
+      .footer-cta-bar { flex-direction: column; text-align: center; gap: 20px; }
+      .social-icons { justify-content: center; }
+      .footer-bottom { text-align: center; }
+      .legal-header { padding-top: 120px; }
+    }
+
+    /* --- CURSOR --- */
+    .cursor-dot, .cursor-outline {
+      position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+      border-radius: 50%; pointer-events: none; z-index: 9999;
+    }
+    .cursor-dot { width: 8px; height: 8px; background-color: #00c3ff; box-shadow: 0 0 10px #00c3ff; }
+    .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.5); transition: transform 0.1s ease; }
+  </style>
+</head>
+
+<body>
+
+  <div class="loader-wrapper">
+    <div class="loader-content">
+      <div class="loader-logo-box">
+        <div class="logo-ring"></div>
+        <img src="/images/edit.ify.jpeg" alt="Logo" class="loader-img">
+      </div>
+      <!-- <div class="loader-progress-container">
+         <span id="loader-percent">0%</span>
+         <div class="loader-bar">
+           <div class="loader-bar-fill"></div>
+         </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <div class="container">
+    <header class="legal-header">
+      <h1>Refund Policy</h1>
+      <div class="legal-meta">
+        <span>Effective: Jan 2026</span>
+        <span style="margin-left:20px;">Financial Protection</span>
+      </div>
+    </header>
+
+    <div class="refund-content">
+      <div class="policy-section">
+        <h2>1. General Principle</h2>
+        <p>Due to the nature of digital creative work, <strong>time and labor are non-returnable</strong>. Once our
+          editors have commenced work on your timeline, we cannot offer a full refund for the hours already spent.</p>
+        <p>Our goal is your satisfaction, which is why we provide revision rounds to fix issues rather than cancelling
+          projects.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>2. Cancellation Window & Kill Fee</h2>
+        <p>If you wish to cancel a project, the refund amount depends on the project stage:</p>
+        <ul>
+          <li><strong>0-2 Hours after order:</strong> 100% Refund (If work hasn't started).</li>
+          <li><strong>Work Started (Draft Phase):</strong> 50% Refund (Project Kill Fee applies).</li>
+          <li><strong>First Draft Delivered:</strong> No Refund. Revisions will be provided.</li>
+        </ul>
+      </div>
+
+      <div class="policy-section">
+        <h2>3. Non-Refundable Scenarios</h2>
+        <p>Refunds are NOT granted for subjective reasons or changes in direction:</p>
+        <ul>
+          <li>"I decided I don't want a video anymore."</li>
+          <li>"I don't like the style" (if it matches the portfolio/brief provided).</li>
+          <li>Delays caused by the client not providing footage/feedback on time.</li>
+        </ul>
+      </div>
+
+      <div class="policy-section">
+        <h2>4. Eligibility for Full Refund</h2>
+        <p>We take responsibility for our mistakes. You are eligible for a 100% refund if:</p>
+        <ul>
+          <li>We fail to deliver the project within the agreed timeframe (without prior notice).</li>
+          <li>We are unable to complete the project due to technical issues on our end.</li>
+          <li>The final delivery is technically corrupted or unusable.</li>
+        </ul>
+      </div>
+
+      <div class="policy-section">
+        <h2>5. Dispute Resolution</h2>
+        <p>If you believe you are entitled to a refund outside these terms, please contact number
+          <strong>9696554268</strong>. We review cases manually and aim for a fair resolution within 48
+          hours.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-section">
+    <div class="footer-watermark">editxify</div>
+
+    <div class="container">
+
+      <div class="footer-cta-bar">
+        <h2>Ready to dominate?</h2>
+        <a href="javascript:void(0)" onclick="transitionToPage('contact.html')" class="footer-cta-btn">START PROJECT &rarr;</a>
+      </div>
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <div class="brand-logo-wrapper">
+            <img src="/images/edit.ify.jpeg" alt="Logo" class="circle-logo-img">
+            <span class="brand-name">editxify</span>
+          </div>
+          <p style="color:#888; font-size:0.9rem; line-height:1.6;">
+            Engineering viral visuals for the world's top creators. Psychology-driven editing that converts views into obsessions.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>EXPLORE</h4>
+          <a href="javascript:void(0)" onclick="transitionToPage('/')">Home</a>
+          <a href="javascript:void(0)" onclick="transitionToPage('/')">Services</a>
+          <a href="javascript:void(0)" onclick="transitionToPage('/')">Work</a>
+          <a href="javascript:void(0)" onclick="transitionToPage('/')">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>LEGAL</h4>
+          <a href="javascript:void(0)" onclick="transitionToPage('privacy.html')">Privacy Policy</a>
+          <a href="javascript:void(0)" onclick="transitionToPage('terms.html')">Terms of Service</a>
+          <a href="javascript:void(0)" onclick="transitionToPage('refund.html')">Refund Policy</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>STAY UPDATED</h4>
+          <p style="color:#888; font-size:0.9rem; margin-bottom:15px;">hello@editxify.in</p>
+          <div class="social-icons">
+             <a href="https://www.instagram.com/editx.ify?igsh=aGp3Z3VnbW94ZG53" target="_blank"><i class="fab fa-instagram"></i></a>
+             <a href="https://www.linkedin.com/in/krishna-jaiswal-3474123a4" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+             <a href="https://x.com/editxify" target="_blank" style="display:flex; align-items:center; justify-content:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 512 512" style="fill:white;">
+                <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
+              </svg>
+             <a href="https://discord.gg/CeNp6Y9PP" target="_blank"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p> @editxify Inc. All Rights Reserved.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    // --- 1. ENTRY LOADER ANIMATION ---
+    document.addEventListener("DOMContentLoaded", () => {
+        const loaderWrapper = document.querySelector(".loader-wrapper");
+        const progressBar = document.querySelector(".loader-bar-fill");
+        const percentText = document.getElementById("loader-percent");
+
+        if (loaderWrapper) {
+            let currentProgress = 0;
+            // Fast load for internal pages
+            const interval = setInterval(() => {
+                currentProgress += Math.random() * 15 + 5; 
+                if (currentProgress > 100) currentProgress = 100;
+
+                if (progressBar) progressBar.style.width = `${currentProgress}%`;
+                if (percentText) percentText.innerText = `${Math.floor(currentProgress)}%`;
+
+                if (currentProgress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loaderWrapper.classList.add("fade-out");
+                        setTimeout(() => { loaderWrapper.style.display = "none"; }, 800);
+                    }, 200);
+                }
+            }, 50);
+        }
+    });
+
+    // --- 2. EXIT PAGE TRANSITION ---
+    function transitionToPage(url) {
+        const loaderWrapper = document.querySelector(".loader-wrapper");
+        const progressBar = document.querySelector(".loader-bar-fill");
+        const percentText = document.getElementById("loader-percent");
+
+        if (loaderWrapper) {
+            loaderWrapper.style.display = "flex";
+            requestAnimationFrame(() => {
+                loaderWrapper.classList.remove("fade-out");
+            });
+
+            // Reset Bars
+            if (progressBar) progressBar.style.width = "0%";
+            if (percentText) percentText.innerText = "0%";
+
+            // Fast Fill
+            setTimeout(() => { if (progressBar) progressBar.style.width = "60%"; }, 50);
+            setTimeout(() => { 
+                if (progressBar) progressBar.style.width = "100%"; 
+                if (percentText) percentText.innerText = "100%";
+            }, 300);
+
+            // Redirect
+            setTimeout(() => { window.location.href = url; }, 800);
+        } else {
+            window.location.href = url;
+        }
+    }
+
+    // --- 3. CUSTOM CURSOR ---
+    const dot = document.querySelector('.cursor-dot');
+    const outline = document.querySelector('.cursor-outline');
+
+    window.addEventListener('mousemove', (e) => {
+      const posX = e.clientX;
+      const posY = e.clientY;
+      dot.style.left = `${posX}px`; dot.style.top = `${posY}px`;
+      outline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+    });
+
+    window.addEventListener('mousedown', () => {
+      outline.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    });
+    window.addEventListener('mouseup', () => {
+      outline.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>editxify</title>
+
+  <link rel="stylesheet" href="/static/css/style.css" />
+
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&f[]=satoshi@900,700,500,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+
+  <style>
+    /* Base Animation State */
+    .reveal-auto {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+      will-change: opacity, transform;
+    }
+
+    /* Active State (Visible) */
+    .reveal-auto.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered Delays for Wave Effect */
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+  </style>
+
+  <!-- ================================================================================================= -->
+  <!-- ================================================================================================= -->
+
+</head>
+
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <div class="loader-wrapper">
+    <div class="loader-content">
+
+      <div class="loader-logo-box">
+        <div class="logo-ring"></div> <img src="/images/edit.ify.jpeg" alt="Logo" class="loader-img">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================================================================================================= -->
+
+  <nav class="navbar-floating">
+    <div class="nav-container">
+
+      <a href="#" class="nav-brand">
+        <img src="/images/edit.ify.jpeg" alt="Logo">
+        <span class="brand-text">editxify</span>
+      </a>
+
+      <div class="desktop-links">
+        <a href="#home" class="nav-item">Home</a>
+        <a href="#services" class="nav-item">Services</a>
+        <a href="#work" class="nav-item">Work</a>
+        <a href="#contact" class="nav-cta">Start Project</a>
+      </div>
+
+      <div class="hamburger-btn" onclick="toggleMenu()">
+        <div class="bar top"></div>
+        <div class="bar bottom"></div>
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="mobile-menu-overlay">
+    <div class="mobile-menu-container">
+
+      <div class="mobile-links">
+        <a href="#home" onclick="toggleMenu()">Home</a>
+        <a href="#services" onclick="toggleMenu()">Services</a>
+        <a href="#work" onclick="toggleMenu()">Work</a>
+        <a href="#contact" onclick="toggleMenu()">Contact</a>
+      </div>
+
+      <div class="mobile-footer">
+        <a href="mailto:hello@editxify.com" class="footer-mail">hello@editxify.in</a>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/editx.ify?igsh=aGp3Z3VnbW94ZG53"><i class="fab fa-instagram"></i></a>
+          <a
+            href="https://www.linkedin.com/in/krishna-jaiswal-3474123a4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i
+              class="fab fa-linkedin-in"></i></a>
+          <a href="https://x.com/editxify"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://discord.gg/CeNp6Y9PP"><i class="fab fa-discord"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================================================================================================= -->
+
+  <!--  hero section  -->
+
+  <section id="home" class="hero">
+    <div id="canvas-container"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="hero-badge" data-aos="fade-down">
+        /// VISUAL ENGINEERING
+      </div>
+      <h1 data-aos="fade-up" data-aos-delay="200">
+        WE ENGINEER <br />
+        <span class="text-gradient">VIRAL REALITY</span>
+      </h1>
+      <p data-aos="fade-up" data-aos-delay="400">
+        Stop uploading videos. Start uploading <b>Assets</b>. We combine
+        psychology with motion graphics to dominate the algorithm.
+      </p>
+      <div class="hero-btns" data-aos="fade-up" data-aos-delay="600">
+        <a href="#work" class="btn-primary">View Portfolio</a>
+        <a href="#contact" class="btn-secondary">Get a Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- // ================================================================================================= -->
+
+  <!-- our arseenal  -->
+  <section id="services" class="section bg-black">
+    <div class="container">
+      <div class="section-header center" data-aos="fade-up" style="margin-bottom: 80px">
+        <span class="tag">/// OUR ARSENAL</span>
+        <h2>VISUAL SYSTEMS</h2>
+      </div>
+
+      <div class="stack-wrapper">
+        <div class="stack-card card-1">
+          <div class="card-content">
+            <span class="card-num">01</span>
+            <h3>Video-Editing</h3>
+            <p>
+              We engineer retention. Using pacing patterns derived from
+              millions of viral views, we keep the viewer hooked till the very
+              last frame.
+            </p>
+            <ul class="card-tags">
+              <li>Pattern Interrupts</li>
+              <li>Sound Psychology</li>
+            </ul>
+          </div>
+          <div class="card-visual">
+            <video autoplay muted loop playsinline>
+              <source src="https://res.cloudinary.com/ddvqjdbik/video/upload/v1767982372/Video_Editing_Generation_q8md2w.mp4" preload="none" type="video/mp4" />
+            </video>
+            <div class="visual-overlay"></div>
+          </div>
+        </div>
+
+        <div class="stack-card card-2">
+          <div class="card-content">
+            <span class="card-num">02</span>
+            <h3> Motion Graphics</h3>
+            <p>
+              Don't just edit, create reality. We integrate adobe premiere and
+              After effects & other software to build custom 3D assets that
+              separate you from the crowd.
+            </p>
+            <ul class="card-tags">
+              <li>CGI Modeling</li>
+              <li>Kinetic Type</li>
+            </ul>
+          </div>
+          <div class="card-visual">
+            <video autoplay muted loop playsinline>
+              <source src="https://res.cloudinary.com/ddvqjdbik/video/upload/v1767983100/From_KlickPin_CF_Did_you_know_your_brain_processes_over_70000_thoughts_a_day____Motion_graphics_trends_Motion_design_Motion_design_animation_q2pmt8.mp4" preload="none" type="video/mp4" />
+            </video>
+            <div class="visual-overlay"></div>
+          </div>
+        </div>
+
+        <div class="stack-card card-3">
+          <div class="card-content">
+            <span class="card-num">03</span>
+            <h3>Immersive Web</h3>
+            <p>
+              Your portfolio shouldn't be a PDF. We build interactive websites
+              that act as a 24/7 salesman for your brand.
+            </p>
+            <ul class="card-tags">
+              <li>Frontend/backend</li>
+              <li>UI/UX</li>
+            </ul>
+          </div>
+          <div class="card-visual">
+            <video autoplay muted loop playsinline>
+              <source src="https://res.cloudinary.com/ddvqjdbik/video/upload/v1767983102/From_KlickPin_CF_%D0%9F%D0%B8%D0%BD_%D0%BE%D1%82_%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F_Tatiana_Romanova_%D0%BD%D0%B0_%D0%B4%D0%BE%D1%81%D0%BA%D0%B5_%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85___%D0%92%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD_%D0%B8_%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD_%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9_%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0_%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D0%B0_%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD_%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9_nilrwf.mp4" preload="none" type="video/mp4" />
+            </video>
+            <div class="visual-overlay"></div>
+          </div>
+        </div>
+
+        <div class="stack-card card-4">
+          <div class="card-content">
+            <span class="card-num">04</span>
+            <h3>Social Media Growth</h3>
+            <p>
+              Content without strategy is noise. We analyze platform
+              algorithms to deploy your assets exactly where they need to be.
+            </p>
+            <ul class="card-tags">
+              <li>Analytics</li>
+              <li>Content Strategy</li>
+            </ul>
+          </div>
+          <div class="card-visual">
+            <video autoplay muted loop playsinline>
+              <source src="https://res.cloudinary.com/ddvqjdbik/video/upload/v1767983104/Social_Media_Growth_Video_Generated_edtq8o.mp4" preload="auto" type="video/mp4" />
+            </video>
+            <div class="visual-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================================================= -->
+
+  <section class="section bg-black overflow-hidden" id="anatomy">
+    <div class="container center">
+      <div class="section-header" data-aos="fade-down">
+        <span class="tag">/// BEHIND THE TIMELINE</span>
+        <h2>THE ANATOMY OF VIRAL</h2>
+      </div>
+
+      <div class="anatomy-wrapper">
+        <div class="anatomy-core">
+          <div class="video-frame">
+            <video autoplay muted loop playsinline   poster="/videos/poster_anatomy.jpg">
+              <source src="/videos/NEWWW VIDEO BUSNIESS.mp4" preload="auto" type="video/mp4" />
+            </video>
+            <div class="scan-overlay"></div>
+            <button class="mute-btn" onclick="toggleAudio(this, event)">
+              <i class="fas fa-volume-mute"></i>
+            </button>
+          </div>
+          <div class="core-glow"></div>
+        </div>
+
+        <div class="float-card sound-card">
+          <div class="icon-circle"><i class="fas fa-wave-square"></i></div>
+          <div class="card-details">
+            <h4>SFX Design</h4>
+            <div class="fake-waveform"></div>
+          </div>
+        </div>
+
+        <div class="float-card color-card">
+          <div class="icon-circle"><i class="fas fa-eye-dropper"></i></div>
+          <div class="card-details">
+            <h4>Color Grade</h4>
+            <div class="color-spectrum"></div>
+          </div>
+        </div>
+
+        <div class="float-card vfx-card">
+          <div class="icon-circle"><i class="fas fa-magic"></i></div>
+          <div class="card-details">
+            <h4>VFX Layer</h4>
+            <p>Particle System</p>
+          </div>
+        </div>
+
+        <div class="float-card type-card">
+          <div class="icon-circle"><i class="fas fa-font"></i></div>
+          <div class="card-details">
+            <h4>Typography</h4>
+            <p>Kinetic Motion</p>
+          </div>
+        </div>
+
+        <div class="connector-lines">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+          <div class="line line-4"></div>
+        </div>
+      </div>
+
+      <p class="interaction-hint" style="margin-top: 50px">
+        <i class="fas fa-info-circle"></i> WE LAYER PSYCHOLOGY INTO EVERY
+        FRAME
+      </p>
+    </div>
+  </section>
+
+  <!-- ================================================================================================= -->
+
+  <section id="work" class="section bg-black overflow-hidden">
+    <div class="container-fluid">
+      <div class="section-header center" data-aos="fade-down">
+        <span class="tag">/// VIRAL ARCHIVES</span>
+        <h2>VISUAL ARSENAL</h2>
+      </div>
+
+      <div class="reel-deck-wrapper">
+        <div class="reel-card" data-tilt>
+          <div class="video-container">
+            <video loop muted playsinline poster="/static/images/poster1.jpg">
+              <source src="https://res.cloudinary.com/ddvqjdbik/video/upload/v1767983188/editred_zdpg6l.mp4" preload="none" type="video/mp4">
+            </video>
+            <div class="scanline"></div>
+          </div>
+          <button class="mute-btn" onclick="toggleAudio(this, event)">
+            <i class="fas fa-volume-mute"></i>
+          </button>
+          <div class="reel-info">
+            <div class="reel-stats">
+            </div>
+            <h3>Finance</h3>
+            <p>High Pacing • SFX</p>
+          </div>
+        </div>
+
+        <div class="reel-card" data-tilt>
+          <div class="video-container">
+            <video loop muted playsinline poster="/static/images/poster2.jpg">
+              <source src="https://res.cloudinary.com/ddvqjdbik/video/upload/v1767983264/jigar_video_vaibhav_pyso5i.mp4" preload="none" type="video/mp4">
+            </video>
+            <div class="scanline"></div>
+          </div>
+          <button class="mute-btn" onclick="toggleAudio(this, event)">
+            <i class="fas fa-volume-mute"></i>
+          </button>
+          <div class="reel-info">
+            <div class="reel-stats">
+            </div>
+            <h3>Education/FINANCE </h3>
+            <p>Sound/Color Grading</p>
+          </div>
+        </div>
+
+        <div class="reel-card" data-tilt>
+          <div class="video-container">
+            <video loop muted playsinline poster="/static/images/poster3.jpg">
+              <source src="https://res.cloudinary.com/ddvqjdbik/video/upload/v1767983594/camera_edits_q0kkca.mp4"  preload="none" type="video/mp4">
+            </video>
+            <div class="scanline"></div>
+          </div>
+          <button class="mute-btn" onclick="toggleAudio(this, event)">
+            <i class="fas fa-volume-mute"></i>
+          </button>
+          <div class="reel-info">
+            <div class="reel-stats">
+            </div>
+            <h3>Motion edits</h3>
+            <p>Motion Graphics</p>
+          </div>
+        </div>
+
+        <div class="reel-card" data-tilt>
+          <div class="video-container">
+            <video loop muted playsinline poster="/static/images/poster4.jpg">
+              <source src="https://res.cloudinary.com/ddvqjdbik/video/upload/v1767983524/watch_manufactuerrr_veaj4o.mp4" preload="none" type="video/mp4">
+            </video> 
+            <div class="scanline"></div>
+          </div>
+          <button class="mute-btn" onclick="toggleAudio(this, event)">
+            <i class="fas fa-volume-mute"></i>
+          </button>
+          <div class="reel-info">
+            <div class="reel-stats">
+            </div>
+            <h3>Documentary/Story</h3>
+            <p>Storytelling</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section id="reviews" class="section bg-black overflow-hidden">
+    <div class="container-fluid">
+      <div class="section-header center" data-aos="fade-up">
+        <span class="tag">/// Reviews </span>
+        <h2>CREATOR TRUST</h2>
+      </div>
+
+      <div class="marquee-container">
+
+        <div class="marquee-track scroll-left">
+          <div class="marquee-group">
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=Alex+H&background=0044ff&color=fff" alt="User" />
+                <div>
+                  <h4>Amit</h4><span class="verified">verma</span>
+                </div>
+              </div>
+              <p>"Retention went up by 40%. The pacing is literal magic."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=Sara+T&background=ea580c&color=fff" alt="User" />
+                <div>
+                  <h4>Sara.</h4><span class="verified">@sara.cook</span>
+                </div>
+              </div>
+              <p>"My cook edits looks like a professonal now."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=Mike+G&background=059669&color=fff" alt="User" />
+                <div>
+                  <h4>stocktrader.</h4><span class="verified">@stocktarder</span>
+                </div>
+              </div>
+              <p>"my finanance stock videos edits looks like professonal design and color grading ."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+
+          <div class="marquee-group">
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=Alex+H&background=0044ff&color=fff" alt="User" />
+                <div>
+                  <h4>Alex H</h4><span class="verified">@alex.growth</span>
+                </div>
+              </div>
+              <p>"Retention went up by 40%. The pacing is literal magic."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=Sara+T&background=ea580c&color=fff" alt="User" />
+                <div>
+                  <h4>Sarah</h4><span class="verified">@sara.cook</span>
+                </div>
+              </div>
+              <p>"My cook edits looks like a professonal now."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=Mike+G&background=059669&color=fff" alt="User" />
+                <div>
+                  <h4>stocktrader</h4><span class="verified">@stocktarder</span>
+                </div>
+              </div>
+              <p>"My finance stock videos edits looks like professional design and color grading."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="marquee-track scroll-right">
+          <div class="marquee-group">
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=David+K&background=7c3aed&color=fff" alt="User" />
+                <div>
+                  <h4>David K.</h4><span class="verified">@david.tech</span>
+                </div>
+              </div>
+              <p>"Finally a developer who understands design. Awards winning."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=Jenny+P&background=be185d&color=fff" alt="User" />
+                <div>
+                  <h4>Jenny P</h4><span class="verified">@jenny.cast</span>
+                </div>
+              </div>
+              <p>"Our podcast clips are now viral machines."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=Crypto+K&background=ca8a04&color=fff" alt="User" />
+                <div>
+                  <h4>Crypto K</h4><span class="verified">@crypto.king</span>
+                </div>
+              </div>
+              <p>"Turned boring finance talks into engaging reels."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+
+          <div class="marquee-group">
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=David+K&background=7c3aed&color=fff" alt="User" />
+                <div>
+                  <h4>David K</h4><span class="verified">@david.tech</span>
+                </div>
+              </div>
+              <p>"Finally a developer who understands design. Awards winning."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=Jenny+P&background=be185d&color=fff" alt="User" />
+                <div>
+                  <h4>Jenny P</h4><span class="verified">@jenny.cast</span>
+                </div>
+              </div>
+              <p>"Our podcast clips are now viral machines."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+            <div class="review-card glass-card">
+              <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+              <div class="review-header">
+                <img src="https://ui-avatars.com/api/?name=Crypto+K&background=ca8a04&color=fff" alt="User" />
+                <div>
+                  <h4>Crypto K</h4><span class="verified">@crypto.king</span>
+                </div>
+              </div>
+              <p>"Turned boring finance talks into engaging reels."</p>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section id="why-editorial" class="editorial-section relative-container">
+
+    <div class="editorial-glow"></div>
+
+    <div class="container">
+      <div class="editorial-grid">
+
+        <div class="editorial-text" data-aos="fade-right">
+          <span class="tag">/// THE PROBLEM</span>
+          <h2>ATTENTION IS THE<br> NEW OIL.</h2>
+          <div class="separator-line"></div>
+          <p class="lead-text">
+            In 2026, average human attention span is less than 8 seconds.
+            If your content doesn't hook immediately, you don't exist.
+          </p>
+          <p class="sub-text">
+            Most creators fail because they treat editing as an afterthought.
+            At Editxify, we treat it as <strong>Visual Engineering</strong>.
+            We don't just make videos look pretty; we structure them to retain viewership, trigger algorithms, and
+            convert strangers into superfans.
+          </p>
+        </div>
+
+        <div class="editorial-features" data-aos="fade-left">
+
+          <div class="feature-item active">
+            <div class="feature-head">
+              <span class="f-num">01</span>
+              <h3>Dopamine Editing</h3>
+              <div class="f-icon"><i class="fas fa-brain"></i></div>
+            </div>
+            <div class="feature-body">
+              <p>We use pacing patterns derived from millions of viral views. Every zoom, cut, and sound effect is
+                placed to reset the viewer's attention clock every 3 seconds.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-head">
+              <span class="f-num">02</span>
+              <h3>Brand Architecture</h3>
+              <div class="f-icon"><i class="fas fa-fingerprint"></i></div>
+            </div>
+            <div class="feature-body">
+              <p>Templates kill brands. We build a unique visual identity (Typography, Color Grading, SFX) that makes
+                your content instantly recognizable in a crowded feed.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-head">
+              <span class="f-num">03</span>
+              <h3>Growth Velocity</h3>
+              <div class="f-icon"><i class="fas fa-rocket"></i></div>
+            </div>
+            <div class="feature-body">
+              <p>Speed creates momentum. Our 24-48 hour sprint cycles ensure you can jump on trends while they are still
+                hot, maximizing algorithmic reach.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section bg-black relative-container">
+    <div class="gradient-blob"></div>
+
+    <div class="container">
+      <div class="contact-glass-wrapper" data-tilt>
+
+        <div class="contact-info-col">
+          <div class="info-header">
+            <span class="tag">/// GET IN TOUCH</span>
+            <h2>
+              LET'S WORK <br />
+              TOGETHER
+            </h2>
+
+          </div>
+
+          <div class="contact-details">
+            <div class="detail-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <span>Mail Us</span>
+                <a href="mailto:editxkrishna60@gmail.com">contact@editxify.in</a>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="fab fa-whatsapp"></i>
+              <div>
+                <span>Chat</span>
+                <a href="#">9696554268</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-mini">
+            <a href="https://www.instagram.com/editx.ify?igsh=aGp3Z3VnbW94ZG53"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/krishna-jaiswal-3474123a4"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://x.com/editxify"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://discord.gg/CeNp6Y9PP"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+
+        <div class="contact-form-col">
+          <form onsubmit="sendToWhatsapp(event)">
+
+            <div class="form-group">
+              <input type="text" id="name" required placeholder=" " />
+              <label>Your Name</label>
+            </div>
+
+            <div class="form-group">
+              <input type="email" id="email" required placeholder=" " />
+              <label>Email Address</label>
+            </div>
+
+            <div class="form-group">
+              <input type="tel" id="phone" placeholder=" " />
+              <label>Alternate Number(Optional)</label>
+            </div>
+
+            <div class="form-group">
+              <select id="service" required>
+                <option value="" disabled selected>Select Service</option>
+                <option value="Video Editing">Video Editing</option>
+                <option value="Web Design">Web Design</option>
+                <option value="Social Media & Ads">Social Media & Ads</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="select-arrow">
+                <i class="fas fa-chevron-down"></i>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <textarea id="message" rows="4" required placeholder=" "></textarea>
+              <label>Project Details</label>
+            </div>
+
+            <div
+              style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1; overflow: hidden;">
+              <label for="bot-field">Do not fill</label>
+              <input type="text" name="bot-field" id="bot-field" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button type="submit" class="submit-btn">
+              Send on WhatsApp <i class="fab fa-whatsapp"></i>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-section">
+    <div class="footer-watermark">edixify</div>
+
+    <div class="container relative-z">
+      <div class="footer-top-cta" data-aos="fade-up">
+        <h2>Ready to dominate?</h2>
+        <a href="#contact" class="cta-link">
+          START PROJECT <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="footer-separator"></div>
+
+      <div class="footer-grid">
+        <div class="footer-col brand-col">
+          <a href="#" class="footer-logo">
+            <img src="/images/edit.ify.jpeg " alt="Logo" />
+            <span>editxify</span>
+          </a>
+          <p>
+            Engineering viral visuals for the world's top creators.
+            Psychology-driven editing that converts views into obsessions.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>EXPLORE</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>LEGAL</h4>
+          <ul class="footer-links">
+            <li><a href="/templates/privacy.html">Privacy Policy</a></li>
+            <li><a href="/templates/terms.html">Terms of Service</a></li>
+            <li><a href="/templates/refund.html">Refund Policy</a></li>
+
+          </ul>
+        </div>
+
+        <div class="footer-col newsletter-col">
+          <h4>STAY UPDATED</h4>
+          <p class="sm-text">hello@editxify.in.</p>
+
+          <!-- <form class="footer-form">
+            <input type="email" placeholder="Email Address" />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form> -->
+
+          <div class="social-grid">
+            <a href="https://www.instagram.com/editx.ify?igsh=aGp3Z3VnbW94ZG53" class="social-btn"><i
+                class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/krishna-jaiswal-3474123a4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+              class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://x.com/editxify" class="social-btn"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://discord.gg/CeNp6Y9PP" class="social-btn"><i class="fab fa-discord"></i></a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="copyright">
+        &copy; @editxify Inc. All Rights Reserved.
+      </div>
+    </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="/js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      // 1. Define elements to animate
+      const targetSelectors = [
+        "h1", "h2", "h3",
+        ".hero-badge", "p",
+        ".btn-primary", ".btn-secondary",
+        ".stack-card",
+        ".anatomy-core", ".float-card",
+        ".reel-card",
+        ".review-card",
+        ".editorial-text", ".feature-item",
+        ".contact-glass-wrapper",
+        ".footer-col", ".footer-top-cta"
+      ];
+
+      // 2. Add classes automatically
+      targetSelectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+
+        elements.forEach((el, index) => {
+          el.classList.add("reveal-auto");
+
+          // Add staggered delay for nice wave effect
+          const delay = (index % 3) + 1;
+          el.classList.add(`reveal-delay-${delay}`);
+        });
+      });
+
+      // 3. Observer Logic
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1, // 10% visibility triggers animation
+        rootMargin: "0px 0px -50px 0px"
+      });
+
+      // 4. Start Observing
+      document.querySelectorAll(".reveal-auto").forEach((el) => {
+        observer.observe(el);
+      });
+
+    });
+
+  </script>
+</body>
+
+</html>

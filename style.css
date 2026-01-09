@@ -1,0 +1,2598 @@
+:root {
+  --bg: #050505;
+  --primary: #0044ff;
+  --primary-glow: #00c3ff;
+  --text: #ffffff;
+  --text-muted: #888888;
+  --border: rgba(255, 255, 255, 0.1);
+  --font-head: "Clash Display", sans-serif;
+  --font-body: "Satoshi", sans-serif;
+
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  cursor: none;
+}
+
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* FILM GRAIN */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise_overlay_image.png");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* UTILS */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 100px 0;
+}
+
+.bg-darker {
+  background: #020202;
+}
+
+.center {
+  text-align: center;
+}
+
+.tag {
+  color: var(--primary-glow);
+  font-family: var(--font-head);
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-head);
+  font-weight: 600;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #fff, var(--primary), var(--primary-glow));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- 1. CUSTOM CURSOR (PREMIUM & LAG FREE) --- */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary-glow);
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  z-index: 10001;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.cursor-outline {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  z-index: 10000;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+/* --- CRITICAL FIX: HIDE CURSOR ON MOBILE (NO LAG) --- */
+@media (hover: none) and (pointer: coarse) {
+
+  .cursor-dot,
+  .cursor-outline {
+    display: none !important;
+    /* Mobile par load hi nahi hoga */
+  }
+}
+
+
+/* --- PREMIUM LOADER (MOBILE CENTERED & SMOOTH) --- */
+.loader-wrapper {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  /* Dynamic Height for Mobile Address Bar Fix */
+  background: #000;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  /* Safe padding for mobile */
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  /* Space between logo and text */
+  transform: translateY(-5%);
+  /* Visual Optical Center */
+}
+
+/* 1. LOGO & RING */
+.loader-logo-box {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 68, 255, 0.1);
+}
+
+.logo-ring {
+  position: absolute;
+  width: 110%;
+  /* Ring slightly larger than container */
+  height: 110%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--primary);
+  border-right-color: var(--primary-glow);
+  z-index: 1;
+  /* Hardware Acceleration for Smoothness */
+  will-change: transform;
+  animation: smoothSpin 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+/* 2. TEXT & BAR */
+.loader-text-area {
+  width: 200px;
+  /* Fixed width for stability */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.loading-status {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+#loader-percent {
+  color: white;
+}
+
+
+/* 3. ANIMATIONS */
+@keyframes smoothSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fade Out Animation */
+.loader-wrapper.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease-out;
+}
+
+/* Mobile Tweak */
+@media (max-width: 480px) {
+  .loader-logo-box {
+    width: 80px;
+    height: 80px;
+  }
+
+  .loader-img {
+    width: 65px;
+    height: 65px;
+  }
+}
+
+/* =========================================
+   1. FLOATING NAVBAR (FIXED & PREMIUM)
+   ========================================= */
+.navbar-floating {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  /* Highest Priority - Always on Top */
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  /* Allows clicking through empty space */
+}
+
+.nav-container {
+  pointer-events: auto;
+  /* Enable clicks on the bar */
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 25px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1000px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: 0.3s ease;
+}
+
+/* LOGO */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-brand img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.brand-text {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+/* DESKTOP LINKS */
+.desktop-links {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-item {
+  color: #aaa;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-item:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-cta {
+  background: white;
+  color: black;
+  padding: 10px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-left: 10px;
+  transition: 0.3s;
+}
+
+.nav-cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+/* =========================================
+   2. HAMBURGER BUTTON (ANIMATED)
+   ========================================= */
+.hamburger-btn {
+  display: none;
+  /* Hidden on Desktop */
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  align-items: flex-end;
+  /* Align bars to right */
+}
+
+.bar {
+  width: 24px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Animation State (When Active) */
+body.nav-active .bar.top {
+  transform: translateY(4px) rotate(45deg);
+  background: var(--primary);
+  /* Optional: Change color on open */
+}
+
+body.nav-active .bar.bottom {
+  transform: translateY(-4px) rotate(-45deg);
+  background: var(--primary);
+}
+
+/* =========================================
+   3. MOBILE MENU OVERLAY (THE FIX)
+   ========================================= */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background-color: #050505;
+  /* Solid Black */
+  z-index: 9995;
+  /* Just below the Floating Navbar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Slide Animation */
+  transform: translateY(-100%);
+  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+/* Slide Down when Active */
+body.nav-active .mobile-menu-overlay {
+  transform: translateY(0);
+}
+
+/* Content Container */
+.mobile-menu-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 80px;
+  /* Space for Navbar */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+body.nav-active .mobile-menu-container {
+  opacity: 1;
+  transition-delay: 0.2s;
+}
+
+/* Links Styling */
+.mobile-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.mobile-links a {
+  font-family: var(--font-head);
+  font-size: clamp(2.5rem, 10vw, 4rem);
+  /* Responsive Giant Text */
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: -1px;
+  transition: 0.3s;
+}
+
+.mobile-links a:hover {
+  color: var(--primary-glow);
+  transform: scale(1.05);
+}
+
+/* Footer Styling */
+.mobile-footer {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-mail {
+  color: #888;
+  text-decoration: none;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 25px;
+  border-radius: 50px;
+  transition: 0.3s;
+}
+
+.footer-mail:hover {
+  background: white;
+  color: black;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-socials a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   4. RESPONSIVE TRIGGERS
+   ========================================= */
+@media (max-width: 900px) {
+  .desktop-links {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .nav-container {
+    padding: 10px 20px;
+  }
+}
+
+/* --- HERO SECTION STYLES (UPDATED) --- */
+
+/* 1. Ensure Variables exist (Agar upar nahi hain toh ye add karo) */
+
+/* 2. Hero Container */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 60px;
+}
+
+#canvas-container {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 2;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* 3. Badge & Typography */
+.hero-badge {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  color: var(--primary-glow);
+  font-size: 0.8rem;
+  margin-bottom: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1.1;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+/* 4. Buttons Wrapper */
+.hero-btns {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* --- THE MISSING BUTTON (See Our Work) --- */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 14px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid var(--primary);
+  transition: 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(0, 68, 255, 0.3);
+  /* Blue Shadow */
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--primary-glow);
+  border-color: var(--primary-glow);
+  box-shadow: 0 0 30px var(--primary-glow);
+  /* Neon Glow */
+  transform: translateY(-3px);
+}
+
+/* --- SECONDARY BUTTON (Get a Quote) --- */
+.btn-secondary {
+  padding: 14px 35px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.btn-secondary:hover {
+  background: white;
+  color: black;
+  border-color: white;
+  transform: translateY(-3px);
+}
+
+/* --- STICKY STACK SERVICES --- */
+.stack-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  /* Space between cards in flow */
+  padding-bottom: 100px;
+}
+
+.stack-card {
+  position: sticky;
+  /* THE MAGIC */
+  top: 150px;
+  /* Distance from top where it sticks */
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 500px;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+  /* Shadow faces UP for stacking effect */
+  transition: transform 0.3s ease;
+}
+
+/* Stacking Offsets (Taaki cards ek ke upar ek dikhein) */
+.card-1 {
+  top: 120px;
+  z-index: 1;
+}
+
+.card-2 {
+  top: 150px;
+  z-index: 2;
+}
+
+.card-3 {
+  top: 180px;
+  z-index: 3;
+}
+
+.card-4 {
+  top: 210px;
+  z-index: 4;
+}
+
+/* Content Side (Left) */
+.card-content {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: radial-gradient(circle at top left, rgba(20, 20, 20, 1), #000);
+}
+
+.card-num {
+  font-family: var(--font-head);
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.05);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.card-content h3 {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.card-content p {
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 1rem;
+  max-width: 400px;
+  margin-bottom: 30px;
+}
+
+.card-tags {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+.card-tags li {
+  font-size: 0.85rem;
+  color: var(--primary-glow);
+  border: 1px solid rgba(0, 68, 255, 0.3);
+  padding: 8px 16px;
+  border-radius: 50px;
+  background: rgba(0, 68, 255, 0.05);
+}
+
+/* Visual Side (Right) */
+.card-visual {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-visual video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right,
+      #000 0%,
+      transparent 30%);
+  /* Fades video into black */
+}
+
+/* Specific Card Accents */
+.card-1 {
+  border-top: 3px solid #0044ff;
+}
+
+.card-2 {
+  border-top: 3px solid #ea580c;
+}
+
+.card-3 {
+  border-top: 3px solid #059669;
+}
+
+.card-4 {
+  border-top: 3px solid #db2777;
+}
+
+/* desktop smooth   */
+/* Jab card sticky ho, toh peeche wale cards thode chote dikhein */
+.stack-card {
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+  transform-origin: center top;
+}
+
+/* --- MOBILE RESPONSIVE & ANIMATION --- */
+@media (max-width: 900px) {
+  .stack-card {
+    grid-template-columns: 1fr;
+    /* Stack vertically */
+    height: auto;
+
+    /* Layout Fixes (Sticky Disable) */
+    position: relative;
+    top: 0 !important;
+    margin-bottom: 30px;
+
+    /* --- ANIMATION START STATE (Ye Add Kiya Hai) --- */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+  }
+
+  /* --- ANIMATION END STATE (Jab Screen Par Aaye) --- */
+  .stack-card.reveal-auto.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Baaki text styling same rahegi */
+  .card-content {
+    padding: 40px;
+    order: 2;
+  }
+
+  .card-visual {
+    height: 250px;
+    order: 1;
+  }
+
+  .card-num {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+
+  .card-content h3 {
+    font-size: 1.8rem;
+  }
+}
+
+/* --- HOLOGRAPHIC REEL DECK --- */
+.bg-black {
+  background-color: #000;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* Wrapper: Makes cards flow horizontally */
+.reel-deck-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 60px 0;
+  overflow-x: auto;
+  perspective: 1000px;
+  /* Essential for 3D feel */
+  scrollbar-width: none;
+  /* Hide Scrollbar Firefox */
+}
+
+.reel-deck-wrapper::-webkit-scrollbar {
+  display: none;
+  /* Hide Chrome */
+}
+
+/* The CARD (Mobile Ratio) */
+.reel-card {
+  position: relative;
+  width: 280px;
+  /* Fixed Width */
+  aspect-ratio: 9/16;
+  /* PERFECT FOR REELS */
+  background: #0a0a0a;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  flex-shrink: 0;
+  /* Cards won't shrink */
+  transform-style: preserve-3d;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  filter: brightness(0.7) grayscale(0.5);
+  /* Dim initially */
+}
+
+/* Video Styling */
+.video-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.reel-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* HOVER EFFECT (The Magic) */
+.reel-card:hover {
+  transform: scale(1.15) translateY(-10px) !important;
+  /* Pop out */
+  z-index: 10;
+  border-color: var(--primary);
+  box-shadow: 0 0 40px rgba(0, 68, 255, 0.4);
+  filter: brightness(1) grayscale(0);
+  /* Full Color */
+}
+
+/* Sibling Blur Effect (Optional: Focus on one) */
+.reel-deck-wrapper:hover .reel-card:not(:hover) {
+  filter: blur(2px) brightness(0.5);
+  transform: scale(0.95);
+}
+
+/* Info Overlay (Hidden initially) */
+.reel-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 1) 10%, transparent);
+  transform: translateY(100%);
+  transition: 0.3s ease-out;
+  opacity: 0;
+}
+
+.reel-card:hover .reel-info {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.reel-info h3 {
+  font-size: 1.2rem;
+  margin: 5px 0;
+  color: white;
+}
+
+.reel-info p {
+  font-size: 0.8rem;
+  color: var(--primary-glow);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Fake Stats */
+.reel-stats {
+  display: flex;
+  gap: 15px;
+  font-size: 0.8rem;
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+.reel-stats i {
+  color: var(--primary);
+}
+
+/* SCANLINE EFFECT (Cyberpunk Vibe) */
+.scanline {
+  width: 100%;
+  height: 100px;
+  z-index: 5;
+  background: linear-gradient(0deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 68, 255, 0.2) 50%,
+      rgba(0, 0, 0, 0) 100%);
+  opacity: 0.1;
+  position: absolute;
+  bottom: 100%;
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% {
+    bottom: 100%;
+  }
+
+  100% {
+    bottom: -100px;
+  }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .reel-deck-wrapper {
+    justify-content: flex-start;
+    /* Start scrolling from left */
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .reel-card {
+    width: 240px;
+    /* Slightly smaller on phone */
+    /* Remove hover transform logic for touch screens if needed, 
+           or keep it for tap-to-expand */
+  }
+}
+
+/* SLIDER */
+
+/* --- THE EDITING ANATOMY --- */
+.anatomy-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  /* Space for floating elements */
+  margin: 50px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 1. CENTRAL CORE (Video) */
+.anatomy-core {
+  position: relative;
+  z-index: 10;
+  width: 320px;
+  aspect-ratio: 9/16;
+  /* Mobile format */
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: #000;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+}
+
+.anatomy-core video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+.core-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--primary);
+  filter: blur(80px);
+  opacity: 0.2;
+  z-index: -1;
+  transition: 0.5s;
+}
+
+/* 2. FLOATING CARDS (Common) */
+.float-card {
+  position: absolute;
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 200px;
+  transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 5;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-glow);
+  font-size: 1.1rem;
+}
+
+.card-details h4 {
+  font-size: 0.9rem;
+  margin: 0;
+  color: white;
+}
+
+.card-details p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* 3. POSITIONING & FLOAT ANIMATION */
+/* Sound - Top Left */
+.sound-card {
+  top: 10%;
+  left: 5%;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Color - Top Right */
+.color-card {
+  top: 15%;
+  right: 0%;
+  animation: float 5s ease-in-out infinite 1s;
+}
+
+/* VFX - Bottom Left */
+.vfx-card {
+  bottom: 15%;
+  left: 0%;
+  animation: float 7s ease-in-out infinite 0.5s;
+}
+
+/* Type - Bottom Right */
+.type-card {
+  bottom: 10%;
+  right: 5%;
+  animation: float 6s ease-in-out infinite 1.5s;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* 4. HOVER EFFECT (EXPLOSION) */
+.anatomy-wrapper:hover .anatomy-core {
+  transform: scale(1.05);
+  border-color: var(--primary);
+  box-shadow: 0 0 60px rgba(0, 68, 255, 0.3);
+}
+
+.anatomy-wrapper:hover .sound-card {
+  transform: translate(-40px, -20px);
+  border-color: var(--primary);
+}
+
+.anatomy-wrapper:hover .color-card {
+  transform: translate(40px, -30px);
+  border-color: #ea580c;
+}
+
+.anatomy-wrapper:hover .vfx-card {
+  transform: translate(-30px, 30px);
+  border-color: #059669;
+}
+
+.anatomy-wrapper:hover .type-card {
+  transform: translate(40px, 20px);
+  border-color: #db2777;
+}
+
+.anatomy-wrapper:hover .core-glow {
+  opacity: 0.5;
+  width: 150%;
+  height: 150%;
+}
+
+/* 5. VISUAL EXTRAS INSIDE CARDS */
+.fake-waveform {
+  width: 80px;
+  height: 15px;
+  background: repeating-linear-gradient(90deg,
+      var(--primary) 0,
+      var(--primary) 2px,
+      transparent 2px,
+      transparent 4px);
+  margin-top: 5px;
+  opacity: 0.7;
+}
+
+.color-spectrum {
+  width: 80px;
+  height: 5px;
+  background: linear-gradient(to right,
+      red,
+      orange,
+      yellow,
+      green,
+      blue,
+      purple);
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+/* 6. CONNECTOR LINES (Subtle Tech Lines) */
+.connector-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.3;
+}
+
+.line {
+  position: absolute;
+  background: var(--text-muted);
+  transition: 0.5s;
+}
+
+/* Connecting logic visualized via CSS lines is complex to make responsive perfectly, 
+   so we use a subtle radial glow instead or keeping these minimal */
+.line-1 {
+  top: 20%;
+  left: 25%;
+  width: 100px;
+  height: 1px;
+  transform: rotate(30deg);
+}
+
+.line-2 {
+  top: 25%;
+  right: 22%;
+  width: 100px;
+  height: 1px;
+  transform: rotate(-30deg);
+}
+
+.line-3 {
+  bottom: 25%;
+  left: 20%;
+  width: 100px;
+  height: 1px;
+  transform: rotate(-30deg);
+}
+
+.line-4 {
+  bottom: 20%;
+  right: 25%;
+  width: 100px;
+  height: 1px;
+  transform: rotate(30deg);
+}
+
+.anatomy-wrapper:hover .line {
+  opacity: 0;
+}
+
+/* Hide lines on explode */
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .anatomy-wrapper {
+    height: 400px;
+  }
+
+  .float-card {
+    width: 140px;
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .icon-circle {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+
+  .card-details h4 {
+    font-size: 0.8rem;
+  }
+
+  /* Bring cards closer on mobile */
+  .sound-card {
+    left: -10px;
+  }
+
+  .color-card {
+    right: -10px;
+  }
+
+  .vfx-card {
+    left: -10px;
+  }
+
+  .type-card {
+    right: -10px;
+  }
+
+  .anatomy-core {
+    width: 200px;
+  }
+}
+
+/* WORK PORTFOLIO */
+/* --- WORK SECTION (REEL DECK STYLE) --- */
+
+/* 1. Container for Horizontal Scroll */
+.reel-deck-wrapper {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  /* Horizontal Scroll enable */
+  padding: 40px 0 60px 0;
+  scroll-snap-type: x mandatory;
+  /* Smooth snapping on mobile */
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scroll on iOS */
+  justify-content: center;
+  /* Center items on desktop if few */
+}
+
+/* Hide Scrollbar but keep functionality */
+.reel-deck-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.reel-deck-wrapper {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 2. The Reel Card */
+.reel-card {
+  position: relative;
+  flex: 0 0 280px;
+  /* Fixed width for Desktop */
+  height: 500px;
+  /* Fixed height (9:16 Aspect Ratio approx) */
+  background: #0a0a0a;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  scroll-snap-align: center;
+  /* Center snap on mobile */
+  transition: all 0.4s ease;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. Video Container & Video */
+.video-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Ensures video fills card without stretching */
+  display: block;
+  opacity: 0.6;
+  /* Dim state initially */
+  transition: opacity 0.3s;
+}
+
+/* 4. Hover Effects (Desktop) */
+.reel-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--primary);
+  box-shadow: 0 0 30px rgba(0, 68, 255, 0.2);
+  z-index: 10;
+}
+
+.reel-card:hover video {
+  opacity: 1;
+  /* Brighten video on hover */
+}
+
+/* 5. Info Overlay */
+.reel-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 1) 10%, transparent);
+  z-index: 2;
+  transform: translateY(20px);
+  transition: 0.3s;
+}
+
+.reel-card:hover .reel-info {
+  transform: translateY(0);
+}
+
+.reel-info h3 {
+  font-size: 1.2rem;
+  color: white;
+  margin: 5px 0;
+}
+
+.reel-info p {
+  color: var(--primary-glow);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.reel-stats {
+  display: flex;
+  gap: 15px;
+  font-size: 0.8rem;
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+.reel-stats i {
+  color: var(--primary);
+}
+
+/* 6. Scanline Effect */
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.3;
+}
+
+
+/* --- AUDIO MUTE BUTTON --- */
+.mute-btn {
+  position: absolute;
+  bottom: 20px;   /* Bottom corner se thoda upar */
+  right: 20px;    /* Right corner se thoda side */
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 20;    /* Text aur Scanline ke upar rahega */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.mute-btn:hover {
+  background: var(--primary); /* Blue glow on hover */
+  border-color: var(--primary);
+  transform: scale(1.1);
+}
+/* === MOBILE RESPONSIVENESS FIX === */
+@media (max-width: 900px) {
+  .reel-deck-wrapper {
+    justify-content: flex-start;
+    /* Left align for scrolling */
+    padding-left: 20px;
+    /* Padding for first card */
+    padding-right: 20px;
+  }
+
+  .reel-card {
+    flex: 0 0 85vw;
+    /* Card takes 85% width on mobile */
+    height: 70vh;
+    /* Taller on mobile */
+    transform: none !important;
+    /* Disable hover transform on mobile */
+  }
+
+  .reel-info {
+    transform: translateY(0);
+  }
+
+  /* Always show info on mobile */
+  .video-container video {
+    opacity: 0.8;
+  }
+
+  /* Visible by default on mobile */
+}
+
+/* --- INFINITE MARQUEE REVIEWS (FIXED) --- */
+.marquee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  padding: 20px 0;
+  overflow: hidden;
+  /* Side Fade Effect */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  /* Ensure width fits content */
+  overflow: hidden;
+}
+
+.marquee-group {
+  display: flex;
+  gap: 30px;
+  padding-right: 30px;
+  /* Gap between duplicates */
+  flex-shrink: 0;
+  /* Prevent shrinking */
+}
+
+/* Animations */
+.scroll-left .marquee-group {
+  animation: scrollLeft 30s linear infinite;
+}
+
+.scroll-right .marquee-group {
+  animation: scrollRight 35s linear infinite;
+}
+
+/* Logic: Move -100% of the GROUP width */
+@keyframes scrollLeft {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scrollRight {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Pause on Hover */
+.marquee-container:hover .marquee-group {
+  animation-play-state: paused;
+}
+
+/* Review Card Styling */
+.review-card {
+  width: 350px;
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  padding: 25px;
+  border-radius: 16px;
+  position: relative;
+  transition: 0.3s ease;
+  flex-shrink: 0;
+  /* Crucial for marquee */
+}
+
+.review-card:hover {
+  background: rgba(20, 20, 20, 0.9);
+  border-color: var(--primary);
+  box-shadow: 0 0 30px rgba(0, 68, 255, 0.15);
+  transform: scale(1.02);
+}
+
+.quote-icon {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.05);
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.review-header img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.review-header h4 {
+  font-size: 1rem;
+  margin: 0;
+  color: white;
+}
+
+.verified {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.review-card p {
+  color: #ccc;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.stars {
+  color: #fbbf24;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+}
+
+/* MOBILE RESPONSIVE FIXES */
+@media (max-width: 768px) {
+  .review-card {
+    width: 280px;
+    /* Smaller cards on phone to prevent overflow issues */
+    padding: 20px;
+  }
+
+  .marquee-group {
+    gap: 20px;
+    padding-right: 20px;
+  }
+
+  /* Slightly faster on mobile looks better */
+  .scroll-left .marquee-group {
+    animation-duration: 25s;
+  }
+
+  .scroll-right .marquee-group {
+    animation-duration: 30s;
+  }
+}
+
+/* CONTACT */
+/* --- PREMIUM GLASS CONTACT --- */
+.bg-black {
+  background-color: #050505;
+}
+
+.relative-container {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1. BACKGROUND BLOB (The Expensive Feel) */
+.gradient-blob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle,
+      rgba(0, 68, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0) 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  animation: blobMove 10s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes blobMove {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    transform: translate(-40%, -60%) scale(1.1);
+  }
+}
+
+/* 2. GLASS WRAPPER */
+.contact-glass-wrapper {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 3. LEFT COL (INFO) */
+.contact-info-col {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.info-header h2 {
+  font-size: 2.5rem;
+  margin: 15px 0;
+  line-height: 1.1;
+  color: white;
+}
+
+.info-header p {
+  color: var(--text-muted);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.detail-item i {
+  font-size: 1.2rem;
+  color: white;
+  background: var(--primary);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.detail-item span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.detail-item a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.social-mini a {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.social-mini a:hover {
+  opacity: 1;
+  color: var(--primary);
+}
+
+/* 4. RIGHT COL (FORM) */
+.contact-form-col {
+  padding: 60px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+/* Inputs styling */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px 0;
+  font-size: 1rem;
+  color: white;
+  outline: none;
+  transition: 0.3s;
+  font-family: var(--font-body);
+}
+
+
+/* Ye code browser ko background color badalne se rokega */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active {
+    
+    /* Trick: Background change hone me 50000 second lagenge (User ko pata bhi nahi chalega) */
+    transition: background-color 50000s ease-in-out 0s;
+
+    /* Text ka color White force karo */
+    -webkit-text-fill-color: white !important;
+}
+.form-group select {
+  color: #fff;
+  cursor: pointer;
+}
+
+.form-group select option {
+  background: #000;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 0;
+  top: 15px;
+  pointer-events: none;
+  color: var(--text-muted);
+}
+
+/* Floating Label Animation */
+.form-group label {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  color: var(--text-muted);
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+/* Animation Logic: Jab input focus ho ya text ho */
+.form-group input:focus~label,
+.form-group input:not(:placeholder-shown)~label,
+.form-group textarea:focus~label,
+.form-group textarea:not(:placeholder-shown)~label {
+  top: -10px;
+  font-size: 0.8rem;
+  color: var(--primary-glow);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-bottom-color: var(--primary);
+}
+
+/* Submit Button */
+.submit-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateX(5px);
+  box-shadow: 0 0 30px rgba(0, 68, 255, 0.4);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .contact-glass-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-info-col {
+    padding: 40px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .contact-form-col {
+    padding: 40px;
+  }
+}
+/* poppppp uppppp  */
+
+
+/* --- PREMIUM SWEETALERT POPUP (Glass & Neon) --- */
+
+/* 1. Main Box (Glass Effect) */
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background: rgba(10, 10, 10, 0.85) !important; /* Dark Translucent */
+    backdrop-filter: blur(20px) !important; /* Blurring background */
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(0, 68, 255, 0.15); /* Blue Glow */
+    border-radius: 20px !important;
+    padding: 30px !important;
+    width: 90% !important; /* Mobile Responsive */
+    max-width: 400px !important; /* Desktop limit */
+}
+
+/* 2. Text Styling */
+div:where(.swal2-container) .swal2-title {
+    color: #fff !important;
+    font-family: var(--font-head) !important;
+    font-size: 1.5rem !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+div:where(.swal2-container) .swal2-html-container {
+    color: #b3b3b3 !important;
+    font-family: var(--font-body) !important;
+    font-size: 1rem !important;
+}
+
+/* 3. Button Styling (Neon Blue) */
+div:where(.swal2-container) button.swal2-styled.swal2-confirm {
+    background: var(--primary) !important;
+    color: #fff !important;
+    border-radius: 50px !important;
+    padding: 12px 30px !important;
+    font-weight: bold;
+    font-family: var(--font-head);
+    box-shadow: 0 0 15px var(--primary-glow);
+    transition: 0.3s;
+}
+
+div:where(.swal2-container) button.swal2-styled.swal2-confirm:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--primary);
+}
+
+/* 4. Custom Loader Animation (Futuristic Ring) */
+.custom-loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: spin 1s ease-in-out infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- CINEMATIC MEGA FOOTER --- */
+.footer-section {
+  background: #020202;
+  padding: 100px 0 30px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 0;
+  /* Remove margin if connected to contact form */
+}
+
+/* 1. GIANT WATERMARK */
+.footer-watermark {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 25vw;
+  /* Massive Size */
+  font-family: var(--font-head);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.02);
+  /* Barely visible */
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+.relative-z {
+  position: relative;
+  z-index: 2;
+}
+
+/* 2. TOP CTA */
+.footer-top-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.footer-top-cta h2 {
+  font-size: 3rem;
+  color: white;
+  margin: 0;
+}
+
+.cta-link {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+  font-family: var(--font-head);
+  font-weight: 700;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 5px;
+  transition: 0.3s;
+}
+
+.cta-link:hover {
+  color: var(--primary);
+  padding-right: 15px;
+  /* Arrow moves */
+}
+
+.footer-separator {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 60px;
+}
+
+/* 3. MAIN GRID */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 50px;
+  margin-bottom: 80px;
+}
+
+/* Brand Column */
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.footer-logo img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-logo span {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.brand-col p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  max-width: 350px;
+}
+
+/* Links Columns */
+.footer-col h4 {
+  color: white;
+  margin-bottom: 25px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+/* Hover Effect: Slide & Color */
+.footer-links a:hover {
+  color: white;
+  transform: translateX(5px);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Newsletter */
+.sm-text {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.footer-form {
+  display: flex;
+  margin-bottom: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.footer-form input {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  width: 100%;
+  outline: none;
+}
+
+.footer-form button {
+  background: var(--primary);
+  border: none;
+  color: white;
+  width: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.footer-form button:hover {
+  background: white;
+  color: black;
+}
+
+/* Social Icons */
+.social-grid {
+  display: flex;
+  gap: 10px;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.3s;
+}
+
+.social-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+/* 4. BOTTOM BAR */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 30px;
+  color: #555;
+  font-size: 0.85rem;
+}
+.copyright{
+  padding-left: 30px;
+}
+
+.made-by i {
+  color: #e11d48;
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* --- MOBILE RESPONSIVE (CRITICAL) --- */
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    /* Tablet: 2 cols */
+  }
+
+  .footer-top-cta {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .footer-top-cta h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-section {
+    padding: 60px 0 20px;
+  }
+
+  /* Grid becomes single column */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  /* Align items center for mobile */
+  .footer-logo,
+  .social-grid {
+    justify-content: center;
+  }
+
+  .brand-col p {
+    margin: 0 auto;
+  }
+
+  /* Footer CTA Mobile */
+  .footer-top-cta h2 {
+    font-size: 1.8rem;
+  }
+
+  .cta-link {
+    font-size: 1.2rem;
+  }
+
+  /* Bottom Bar Stack */
+  .footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* Watermark Smaller on Mobile */
+  .footer-watermark {
+    font-size: 35vw;
+    bottom: 50px;
+    opacity: 0.03;
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+
+  .work-grid,
+  .contact-glass {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-glass {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .nav-links,
+  .desktop-btn {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .comparison-container {
+    height: 250px;
+  }
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bar {
+  width: 25px;
+  height: 2px;
+  background: white;
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: black;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-100%);
+  transition: 0.4s;
+}
+
+.mobile-menu.active {
+  transform: translateY(0);
+}
+
+.mobile-links a {
+  font-size: 2rem;
+  color: white;
+  text-decoration: none;
+  margin: 15px 0;
+  font-family: var(--font-head);
+}
+
+.close-menu-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   SCROLL REVEAL ENGINE (PREMIUM SMOOTHNESS)
+   ========================================= */
+
+/* 1. Base State (Hidden) */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  /* Niche se upar aayega */
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  /* "Luxury" Easing Curve */
+  filter: blur(5px);
+  /* Thoda dhundhla hoga shuru mein */
+}
+
+/* 2. Active State (Visible) */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* 3. Staggered Delays (One by One effect) */
+/* Agar 3 cards hain, toh ek ke baad ek aayenge */
+.delay-100 {
+  transition-delay: 0.1s;
+}
+
+.delay-200 {
+  transition-delay: 0.2s;
+}
+
+.delay-300 {
+  transition-delay: 0.3s;
+}
+
+/* 4. HERO SECTION SPECIAL (Load hote hi aayega) */
+.hero-animate {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  animation: heroEnter 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Loader khatam hone ke baad Hero start hoga */
+.hero-animate.delay-hero {
+  animation-delay: 2.2s;
+}
+
+/* Loader time + buffer */
+
+@keyframes heroEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* =========================================
+   WHY EDITXIFY (EDITORIAL STYLE)
+   ========================================= */
+
+.editorial-section {
+  padding: 120px 0;
+  background-color: #050505;
+  overflow: hidden;
+}
+
+.editorial-glow {
+  position: absolute;
+  left: -20%;
+  top: 30%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 68, 255, 0.08), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  /* Text takes less, features take more */
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* --- LEFT SIDE: TEXT --- */
+.editorial-text .tag {
+  color: var(--primary);
+  font-family: var(--font-head);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.editorial-text h2 {
+  font-family: var(--font-head);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.separator-line {
+  width: 60px;
+  height: 4px;
+  background: var(--primary);
+  margin-bottom: 30px;
+}
+
+.lead-text {
+  font-size: 1.2rem;
+  color: white;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.sub-text {
+  font-size: 1rem;
+  color: #888;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.editorial-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--primary);
+  padding-bottom: 5px;
+  transition: 0.3s;
+}
+
+.editorial-btn:hover {
+  color: var(--primary);
+  gap: 15px;
+  /* Arrow moves */
+}
+
+/* --- RIGHT SIDE: FEATURE LIST --- */
+.editorial-features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.feature-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 30px;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover/Active State */
+.feature-item:hover,
+.feature-item.active {
+  background: rgba(20, 20, 20, 0.8);
+  border-color: var(--primary);
+  transform: translateX(-10px);
+  /* Moves slightly left */
+  box-shadow: 0 10px 40px rgba(0, 68, 255, 0.1);
+}
+
+.feature-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.f-num {
+  font-family: var(--font-head);
+  font-size: 1.2rem;
+  color: var(--primary);
+  opacity: 0.5;
+  margin-right: 20px;
+}
+
+.feature-item h3 {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  color: white;
+  flex-grow: 1;
+}
+
+.f-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  transition: 0.3s;
+}
+
+.feature-item:hover .f-icon,
+.feature-item.active .f-icon {
+  background: var(--primary);
+  color: white;
+}
+
+/* Body Text (Expands on hover) */
+/* --- ACCORDION ANIMATION FIX --- */
+.feature-body {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  /* Smooth transition for height and opacity */
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.5s ease,
+    margin-top 0.3s ease;
+}
+
+/* Active State (Triggered by JS or Hover) */
+.feature-item.active .feature-body,
+.feature-item:hover .feature-body {
+  max-height: 150px;
+  /* Enough space for text */
+  opacity: 1;
+  margin-top: 15px;
+}
+
+/* --- MOBILE FIXES --- */
+@media (max-width: 900px) {
+  .editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .editorial-text {
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .separator-line {
+    margin: 0 auto 30px;
+  }
+
+  .editorial-btn {
+    justify-content: center;
+  }
+
+  /* Mobile Animation: No Hover, only Active class (via Tap) */
+  .feature-item:hover {
+    transform: none;
+    /* Disable shift on mobile to prevent shaky scroll */
+  }
+
+  .feature-item.active {
+    transform: translateY(-5px);
+    background: rgba(20, 20, 20, 0.9);
+    border-color: var(--primary);
+  }
+}
